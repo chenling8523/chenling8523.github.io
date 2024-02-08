@@ -2,8 +2,8 @@
 <html>
 
 <head>
-	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
-	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_chenling.jpeg"/>
+	<link rel="shortcut icon" href="/img/logo_chenling.jpeg">
 	
 			    <title>
     Blogs
@@ -92,37 +92,35 @@
 	        </li>
 			<!-- categories_name  分类   --> 
 	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+	                    </ul>
+	        </li>
+	        
 	        <!-- archives  归档   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">归档</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="archive-link" href="/archives/2024/02/">February 2024</a>
+	                    </ul>
+	        </li>
 	        
 	        
 		        <!-- Pages 自定义   -->
 		        
 		        <li>
-		            <a href="/backend/" title="后端">
-		                后端
+		            <a href="/tag/" title="标签">
+		                标签
 		            </a>
 		        </li>
 		        
 		        <li>
-		            <a href="/middleware/" title="中间件">
-		                中间件
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="" title="云原生">
-		                云原生
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="" title="AI">
-		                AI
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="/resume/" title="简历">
+		            <a href="/about/" title="简历">
 		                简历
 		            </a>
 		        </li>
@@ -134,7 +132,7 @@
 			<ul class="icons">
                     
                     <li>
-                        <a title="github" href="/%5Bobject%20Object%5D" target="_blank" rel="noopener">
+                        <a title="github" href="https://github.com/chenling8523" target="_blank" rel="noopener">
                             <i class="icon fa fa-github"></i>
                         </a>
                     </li>
@@ -144,23 +142,57 @@
 
         <div id="main" >
             <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Hello World</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >2-mysqllog</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+                <h2 id="Innodb-delete删除过期数据，产生慢sql，该怎么办？"><a href="#Innodb-delete删除过期数据，产生慢sql，该怎么办？" class="headerlink" title="Innodb delete删除过期数据，产生慢sql，该怎么办？"></a>Innodb delete删除过期数据，产生慢sql，该怎么办？</h2><blockquote>
+<p>本文建议阅读时间5分钟</p>
+</blockquote>
+<h3 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h3><p>mysql | innodb | binlog ｜ redolog ｜ undolog</p>
+<h3 id="名词定义"><a href="#名词定义" class="headerlink" title="名词定义"></a>名词定义</h3><blockquote>
+<p>binlog：The binary log contains “events” that describe database changes such as table creation operations or changes to table data. It also contains events for statements that potentially could have made changes.</p>
+</blockquote>
+<blockquote>
+<p>redo log：A disk-based data structure used during crash recovery, to correct data written by incomplete transactions. During normal operation, it encodes requests to change InnoDB table data, which result from SQL statements or low-level API calls. Modifications that did not finish updating the data files before an unexpected shutdown are replayed automatically.</p>
+</blockquote>
+<blockquote>
+<p>undo log:An undo log is a collection of undo log records associated with a single read-write transaction. An undo log record contains information about how to undo the latest change by a transaction to a clustered index record. </p>
+</blockquote>
+<p>binlog主要有两个作用：</p>
+<ul>
+<li>备份：通过二进制文件，保证server不同副本上，数据一致
+<li>数据恢复：当进行数据恢复时，导入备份数据，然后通过binlog重放备份点之后的时间，进行数据库状态恢复。Innodb 具有将数据库恢复到近15天任意一个时间点状态的能力，主要是通过此方式实现。
+</ul>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>redolog在数据库崩溃后恢复使用，用于保证事务的完整性</p>
+<p>undo log：记录了数据的更改信息和回滚日志。</p>
+<h3 id="什么是Mysql-WAL（Write-Ahead-Logging）机制"><a href="#什么是Mysql-WAL（Write-Ahead-Logging）机制" class="headerlink" title="什么是Mysql WAL（Write-Ahead Logging）机制"></a>什么是Mysql WAL（Write-Ahead Logging）机制</h3><h3 id="有了binlog，为什么还有redo-log"><a href="#有了binlog，为什么还有redo-log" class="headerlink" title="有了binlog，为什么还有redo log"></a>有了binlog，为什么还有redo log</h3><p>binlog是Mysql Server层记录的，采用追加写的形式，会记录所有数据表的ddl和数据的增、改、删操作。然而当数据库崩溃，更新数据的请求已经执行完，而binlog还没记录时，就无法保证数据恢复和同步时的数据一致了</p>
+<h3 id="redo-log是如何记录的"><a href="#redo-log是如何记录的" class="headerlink" title="redo log是如何记录的"></a>redo log是如何记录的</h3><h3 id="sql更新语句执行时，mysql进行了哪些操作"><a href="#sql更新语句执行时，mysql进行了哪些操作" class="headerlink" title="sql更新语句执行时，mysql进行了哪些操作"></a>sql更新语句执行时，mysql进行了哪些操作</h3><p>当执行一条更新语句时，InnoDB引擎使用了两阶段提交，如下图所示：</p>
+<ol>
+<li>找到该行记录，修改数据
+<li>将数据修改写入redo log，并进入prepare阶段，准备提交
+<li>将数据修改写入bin log
+<li>提交事务，完成本次数据修改
+</ol>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>如果在两阶段提交过程中，server出现异常，Innodb会根据binlog状态来保证：</p>
+<ol>
+<li>在prepare阶段崩溃，会首先扫描binlog，发现没有相关binlog，放弃更新
+<li>在commit阶段崩溃，会根据binlog，发现更新操作已被记录，重放redolog，继续后续的流程
+</ol>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="delete语句执行时间过长，该怎么办？"><a href="#delete语句执行时间过长，该怎么办？" class="headerlink" title="delete语句执行时间过长，该怎么办？"></a>delete语句执行时间过长，该怎么办？</h3><ul>
+<li>判断是否查找待删除数据耗时过程，此处可通过是否命中索引，后续进行添加索引，或修改sql语句来缩短耗时
+<li>如果单条delete语句删除时间过长，通过上述分析可知，redo log会记录待删除的数据，如果删除数据量过大，在redo log记录过程，会耗时久。可以在delete语句添加limit n，缩短单次时间。为降低对数据库压力，建议n取值在1000-10000，当单条数据所占磁盘空间较大时，建议n取值小一些。
+</ul>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ACID是数据库的四大特性。简单可以这么认为：</p>
+<ul>
+<li>A（原子性）主要基于undo log
+<li>C（一致性）是由原子性、隔离性、持久性来保证的
+<li>I（隔离性）是由锁来控制的
+<li>D（持久性）主要基于redo log
 
             </div>
 
@@ -223,8 +255,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://example.com/2024/02/08/hello-world/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2024/02/08/hello-world/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://example.com/2024/02/08/2-mysqllog/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2024/02/08/2-mysqllog/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
